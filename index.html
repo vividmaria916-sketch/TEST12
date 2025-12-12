@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>인재양성과정 리더십 유형 테스트</title>
+
+  <style>
+    :root{
+      --accent:#0a63d6;
+      --accent-soft:#e4eeff;
+      --bg:#f5f7fb;
+      --text:#111827;
+      --muted:#6b7280;
+      --radius:14px;
+      --shadow:0 8px 22px rgba(15,23,42,0.08);
+      font-family: "Apple SD Gothic Neo","Noto Sans KR",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    }
+    *{box-sizing:border-box;}
+
+    body{
+      margin:0;
+      min-height:100vh;
+      background:linear-gradient(180deg,var(--bg),#ffffff 60%);
+      display:flex;
+      justify-content:center;
+      padding:18px 12px 24px;
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+    }
+    .container{
+      width:100%;
+      max-width:780px;
+    }
+
+    header{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .logo{
+      width:46px;height:46px;
+      border-radius:12px;
+      background:linear-gradient(135deg,var(--accent),#2b8dfd);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-weight:800;
+      font-size:18px;
+      box-shadow:0 8px 20px rgba(10,99,214,0.25);
+    }
+    h1{
+      margin:0;
+      font-size:18px;
+      font-weight:700;
+      letter-spacing:-0.02em;
+    }
+    .subtitle{
+      margin-top:4px;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    .card{
+      background:#ffffff;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:16px 16px 18px;
+      margin-bottom:14px;
+    }
+    .info-row{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:14px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .legend{
+      background:var(--accent-soft);
+      padding:7px 10px;
+      border-radius:999px;
+      font-size:12px;
+      color:#1d3b7c;
+      white-space:nowrap;
+    }
+
+    .questions{
+      display:grid;
+      gap:10px;
+      margin-top:4px;
+    }
+    .q-card{
+      border-radius:12px;
+      padding:12px 12px 10px;
+      background:linear-gradient(180deg,#ffffff,rgba(10,99,214,0.02));
+      border:1px solid rgba(148,163,184,0.3);
+    }
+    .q-text{
+      font-size:14px;
+      font-weight:600; /* 적당히 굵게 */
+      margin-bottom:8px;
+      line-height:1.4;
+    }
+
+    .choice-row{
+      display:flex;
+      gap:8px;
+      justify-content:space-between;
+    }
+    .choice{
+      flex:1;
+      text-align:center;
+    }
+    .choice input[type="radio"]{
+      display:none;
+    }
+    .choice label{
+      display:block;
+      padding:8px 0;
+      font-size:13px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,0.6);
+      color:var(--muted);
+      cursor:pointer;
+      user-select:none;
+    }
+    .choice input[type="radio"]:checked + label{
+      background:linear-gradient(180deg,var(--accent),#2b8dfd);
+      color:#fff;
+      border-color:transparent;
+      box-shadow:0 6px 14px rgba(10,99,214,0.35);
+      font-weight:600;
+    }
+
+    .btn-row{
+      display:flex;
+      gap:10px;
+      margin-top:16px;
+    }
+    button{
+      flex:1;
+      border:none;
+      border-radius:10px;
+      padding:11px 0;
+      font-size:14px;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .btn-reset{
+      background:#eef2ff;
+      color:#1d3b7c;
+    }
+    .btn-primary{
+      background:var(--accent);
+      color:#fff;
+      box-shadow:0 8px 22px rgba(10,99,214,0.3);
+    }
+    .provider{
+      margin-top:10px;
+      text-align:center;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    /* 결과 페이지 */
+    #resultPage{display:none;}
+    .result-title{
+      font-size:18px;
+      font-weight:700;
+      margin-bottom:6px;
+      color:#1d3b7c;
+    }
+    .result-main{
+      font-size:20px;
+      font-weight:800;
+      margin-bottom:6px;
+    }
+    .result-desc{
+      font-size:13px;
+      color:var(--muted);
+      margin-bottom:12px;
+      line-height:1.5;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:4px;
+      font-size:13px;
+    }
+    th,td{
+      padding:8px 6px;
+      border-bottom:1px solid #e5e7eb;
+      text-align:left;
+    }
+    th{
+      font-weight:700;
+      color:var(--muted);
+      font-size:12px;
+    }
+    .rank{
+      width:40px;
+      font-weight:700;
+    }
+    .type-pill{
+      display:inline-block;
+      padding:4px 10px;
+      border-radius:999px;
+      background:var(--accent-soft);
+      color:#1d3b7c;
+      font-weight:700;
+      font-size:12px;
+    }
+    .small{
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    @media (max-width:540px){
+      .card{padding:14px 12px 16px;}
+      .choice label{font-size:12px;padding:7px 0;}
+      .q-text{font-size:13px;}
+      h1{font-size:17px;}
+      .logo{width:42px;height:42px;font-size:16px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">MC</div>
+      <div>
+        <h1>[인재양성과정 리더십 유형 테스트]</h1>
+        <div class="subtitle">
+          아래 각 문항에 대해 1~5점을 선택해주세요. (총 40문항 소요시간 약 4~7분)
+        </div>
+      </div>
+    </header>
+
+    <!-- 테스트 페이지 -->
+    <section id="testPage" class="card">
+      <div class="info-row">
+        <div>
+          선택 숫자의 의미:
+          <strong>1</strong> 전혀 그렇지 않다 ·
+          <strong>2</strong> 그렇지 않은 편이다 ·
+          <strong>3</strong> 보통이다 ·
+          <strong>4</strong> 그렇다 ·
+          <strong>5</strong> 매우 그렇다
+        </div>
+        <div class="legend">총 40문항 · 소요시간 약 4~7분</div>
+      </div>
+
+      <div id="questionsArea" class="questions"></div>
+
+      <div class="btn-row">
+        <button type="button" class="btn-reset" id="resetBtn">초기화</button>
+        <button type="button" class="btn-primary" id="submitBtn">결과 보기</button>
+      </div>
+
+      <div class="provider">테스트 제공자: <strong>Multicampus</strong></div>
+    </section>
+
+    <!-- 결과 페이지 -->
+    <section id="resultPage" class="card">
+      <div class="result-title">당신의 리더십 타입은?</div>
+      <div id="primaryType" class="result-main">-</div>
+      <div id="primaryDesc" class="result-desc"></div>
+
+      <table>
+        <thead>
+          <tr>
+            <th class="rank">순위</th>
+            <th>유형</th>
+            <th>점수</th>
+            <th>간단 설명</th>
+          </tr>
+        </thead>
+        <tbody id="scoreTableBody"></tbody>
+      </table>
+
+      <div class="btn-row" style="margin-top:14px;">
+        <button type="button" class="btn-reset" id="backBtn">테스트 다시하기</button>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // 40문항
+    const questions = [
+      "나는 업무를 시작할 때 명확한 목표와 기한을 설정하려 한다.",
+      "당장 실행 가능한 방법을 우선적으로 찾는 편이다.",
+      "빠르게 결과를 만들어내는 것에 만족감을 느낀다.",
+      "실행력이 떨어지는 팀원에게 직접적인 피드백을 주는 것이 필요하다고 생각한다.",
+      "업무의 완성도보다 마감 내 결과물을 제출하는 것이 중요하다.",
+      "회의나 의사결정에서 빠르게 결론을 내는 것을 선호한다.",
+      "업무 중 팀원들에게 명확한 지시와 기대치를 전달하려 노력한다.",
+      "목표 달성을 위해 다소 무리한 추진도 감수하는 편이다.",
+      "문제가 생기면 감정보다 해결책을 먼저 찾는다.",
+      "내가 나서서 일을 진두지휘할 때 팀의 성과가 높아지는 경우가 많다.",
+      "나는 동료들과의 관계가 업무만큼 중요하다고 생각한다.",
+      "같이 일하는 사람들의 분위기나 감정을 민감하게 살핀다.",
+      "혼자보다 함께 일할 때 동기부여가 더 잘 된다.",
+      "갈등이 생겼을 때 감정적 충돌을 줄이기 위해 중재자 역할을 맡는다.",
+      "감사 인사나 격려의 말을 자주 전하는 편이다.",
+      "회의나 대화 중 사람들의 말하지 않은 뉘앙스까지 파악하려 한다.",
+      "갈등이 생기면 관계를 해치지 않도록 조심스럽게 접근한다.",
+      "팀의 소통 분위기를 부드럽게 만드는 데 신경을 쓴다.",
+      "팀 내 분위기나 팀원 간 관계를 더 좋게 만들기 위한 행동을 자주 한다.",
+      "팀원들이 편안하게 느끼도록 정서적 분위기를 조성하려 한다.",
+      "업무를 시작하기 전에 전체 흐름과 계획을 먼저 세운다.",
+      "장기 일정을 스스로 정리해두는 편이다.",
+      "갑작스러운 요청보다는 미리 계획된 일정 내 일을 선호한다.",
+      "업무의 우선순위를 정리해서 실천하려 노력한다.",
+      "어떤 일을 할 때 그 이유와 배경을 먼저 이해하려 한다.",
+      "일을 시작하기 전에 전체 구조와 흐름을 먼저 설계한다.",
+      "반복되는 문제를 시스템적으로 해결하려는 편이다.",
+      "회의나 업무 프로세스를 정형화하고 표준을 만드는 걸 선호한다.",
+      "팀원들이 업무를 혼란없이 따라올 수 있도록 체계를 만든다.",
+      "감에 의존하기보다는 데이터와 구조에 기반한 판단을 선호한다.",
+      "새로운 시도나 도전을 통해 배우는 데 가치를 둔다.",
+      "실수를 하더라도 그 안에서 배울 점을 찾으려고 한다.",
+      "실패보다 배움의 기회를 놓치는 것을 더 두려워한다.",
+      "반복적인 업무보다 배움이 있는 과제를 선호한다.",
+      "평소 다양한 정보나 지식에 호기심을 가지는 편이다.",
+      "팀원에게 바로 답을 주기보다는 스스로 생각해보도록 질문한다.",
+      "대화할 때 판단 없이 먼저 경청하려고 노력한다.",
+      "팀원 개개인의 성장 목표에 관심이 많다.",
+      "단기 성과보다 장기적 역량 개발을 중요하게 여긴다.",
+      "[함께 성장하자]는 메시지를 자주 팀원에게 전달한다."
+    ];
+
+    // 유형 메타
+    const typeMeta = {
+      Achiever:{
+        label:"Achiever",
+        desc:"목표 지향적이고 실행력이 높은 성취형 리더입니다. 빠른 추진력과 결단으로 팀을 이끕니다."
+      },
+      Collaborator:{
+        label:"Collaborator",
+        desc:"관계와 협업을 중시하는 조화형 리더입니다. 팀원들이 심리적으로 안전하게 일할 수 있는 분위기를 만듭니다."
+      },
+      Planner:{
+        label:"Planner",
+        desc:"체계와 구조를 중시하는 기획형 리더입니다. 계획과 프로세스를 통해 안정적인 성과를 만들어냅니다."
+      },
+      Learner:{
+        label:"Learner",
+        desc:"성장과 배움을 중시하는 학습형 리더입니다. 실패를 경험으로 삼아 장기적인 역량 개발을 이끕니다."
+      }
+    };
+
+    const questionsArea = document.getElementById("questionsArea");
+    const testPage = document.getElementById("testPage");
+    const resultPage = document.getElementById("resultPage");
+    const submitBtn = document.getElementById("submitBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const backBtn = document.getElementById("backBtn");
+    const primaryTypeEl = document.getElementById("primaryType");
+    const primaryDescEl = document.getElementById("primaryDesc");
+    const scoreTableBody = document.getElementById("scoreTableBody");
+
+    /* 문항 렌더링 (최대한 단순하게) */
+    let qHtml = "";
+    for(let i=0;i<questions.length;i++){
+      const n = i+1;
+      qHtml += '<div class="q-card">';
+      qHtml += '<div class="q-text">'+ n + '. ' + questions[i] + '</div>';
+      qHtml += '<div class="choice-row">';
+      for(let v=1; v<=5; v++){
+        const id = 'q'+n+'_'+v;
+        qHtml += '<div class="choice">';
+        qHtml += '<input type="radio" id="'+id+'" name="q'+n+'" value="'+v+'">';
+        qHtml += '<label for="'+id+'">'+v+'</label>';
+        qHtml += '</div>';
+      }
+      qHtml += '</div></div>';
+    }
+    questionsArea.innerHTML = qHtml;
+
+    function getAnswers(){
+      const answers = [];
+      for(let i=1;i<=40;i++){
+        const checked = document.querySelector('input[name="q'+i+'"]:checked');
+        if(!checked){
+          return {ok:false, missing:i, answers:[]};
+        }
+        answers.push(parseInt(checked.value,10));
+      }
+      return {ok:true, missing:null, answers};
+    }
+
+    function computeScores(answers){
+      const sums = {Achiever:0,Collaborator:0,Planner:0,Learner:0};
+      answers.forEach((v,idx)=>{
+        if(idx<10) sums.Achiever+=v;
+        else if(idx<20) sums.Collaborator+=v;
+        else if(idx<30) sums.Planner+=v;
+        else sums.Learner+=v;
+      });
+      return sums;
+    }
+
+    function sortScores(sums){
+      const order=["Achiever","Collaborator","Planner","Learner"];
+      const arr=order.map(k=>[k,sums[k]]);
+      arr.sort((a,b)=>{
+        if(b[1]!==a[1]) return b[1]-a[1];
+        return order.indexOf(a[0])-order.indexOf(b[0]);
+      });
+      return arr;
+    }
+
+    function showResult(sums){
+      const sorted = sortScores(sums);
+      const topScore = sorted[0][1];
+      const topTypes = sorted.filter(([t,s])=>s===topScore).map(([t])=>t);
+      primaryTypeEl.textContent = topTypes.map(t=>typeMeta[t].label).join(" / ");
+      primaryDescEl.textContent = topTypes.map(t=>typeMeta[t].desc).join(" ");
+
+      scoreTableBody.innerHTML = "";
+      sorted.forEach(([type,score],idx)=>{
+        const tr = document.createElement("tr");
+        tr.innerHTML =
+          '<td class="rank">'+(idx+1)+'위</td>'+
+          '<td><span class="type-pill">'+typeMeta[type].label+'</span></td>'+
+          '<td><strong>'+score+'</strong></td>'+
+          '<td class="small">'+typeMeta[type].desc+'</td>';
+        scoreTableBody.appendChild(tr);
+      });
+
+      testPage.style.display="none";
+      resultPage.style.display="block";
+      window.scrollTo({top:0,behavior:"smooth"});
+    }
+
+    submitBtn.addEventListener("click",()=>{
+      const res = getAnswers();
+      if(!res.ok){
+        alert(res.missing+"번 문항을 선택해주세요.");
+        const target = document.querySelector('input[name="q'+res.missing+'"]');
+        if(target){ target.scrollIntoView({behavior:"smooth", block:"center"}); }
+        return;
+      }
+      const sums = computeScores(res.answers);
+      showResult(sums);
+    });
+
+    resetBtn.addEventListener("click",()=>{
+      if(confirm("모든 선택을 초기화하시겠습니까?")){
+        document.querySelectorAll('input[type="radio"]').forEach(r=>r.checked=false);
+        window.scrollTo({top:0,behavior:"smooth"});
+      }
+    });
+
+    backBtn.addEventListener("click",()=>{
+      resultPage.style.display="none";
+      testPage.style.display="block";
+      window.scrollTo({top:0,behavior:"smooth"});
+    });
+  </script>
+</body>
+</html>
